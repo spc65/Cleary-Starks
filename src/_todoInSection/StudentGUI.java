@@ -8,8 +8,11 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.RowSorter;
 import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 @SuppressWarnings("serial")
 public class StudentGUI extends JFrame {
@@ -43,23 +46,19 @@ public class StudentGUI extends JFrame {
     setLocation(30, 30);
 
     // TODO: 2) Need a new StudentCollection as our model
- 
+    model = new StudentCollection();
     // TODO: 3) Construct the JTable (table) with our model as an argument (could use setModel)
- 
+    table = new JTable(model);
     // TODO: 4) Construct a JScrollPane to decorate table so that if the data exceeds the 
     // side of the table in the  GUI, then it automatically becomes scrollable.
-    
+    JScrollPane pane = new JScrollPane(table);
     // TODO: 5) Add JScrollPane to this JFrame
-   
-    
-    // TODO: Run this code to see if the JTable appears (no code to write)
-
-    
+   this.add(pane,BorderLayout.CENTER);
     // TODO: 6) Construct a new RowSorter<TableModel> to be a TableRowSorter
+   RowSorter<TableModel> rS = new TableRowSorter<TableModel>(model);
     // while setting its model to model
- 
     // TODO: 7) Link up table and the sorter
- 
+   table.setRowSorter(rS);
     // Layout the GUI
     JButton button = new JButton("Select Highlighted Row");
     JPanel panel = new JPanel();
@@ -79,7 +78,8 @@ public class StudentGUI extends JFrame {
       // row need table's getSelectedRow and convertRowIndexToModel as
       // well as model's getValueAt(rowIndex, columnIndex). See the API
       // for details.
-      System.out.println("Get student's name from the table");
+    String name = table.getValueAt(table.getSelectedRow(),0).toString();
+      System.out.println(name);
 
     }
   }
